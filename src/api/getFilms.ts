@@ -10,8 +10,6 @@ const getFilms = async (
     );
     const data = await response.json();
 
-    console.log('getFilms => ', data);
-
     return data;
 };
 

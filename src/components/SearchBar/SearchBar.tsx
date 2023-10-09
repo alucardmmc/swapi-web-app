@@ -16,8 +16,6 @@ const SearchBar: FC<SearchBarProps> = ({ handleSearch, searchDisabled }) => {
         }
     };
 
-    console.log(inputElement);
-
     return (
         <div className={styles.container}>
             <input

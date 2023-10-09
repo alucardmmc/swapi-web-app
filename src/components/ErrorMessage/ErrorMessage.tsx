@@ -1,12 +1,8 @@
 import { FC } from 'react';
-import { useRouteError } from 'react-router-dom';
 
 import styles from './ErrorMessage.module.css';
 
 const ErrorMessage: FC = () => {
-    const error = useRouteError();
-    console.error(error);
-
     return (
         <div className={styles.container}>
             <div>

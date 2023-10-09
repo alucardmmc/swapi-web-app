@@ -10,8 +10,6 @@ const getPeople = async (
     );
     const data = await response.json();
 
-    console.log('getPeople => ', data);
-
     return data;
 };
 
