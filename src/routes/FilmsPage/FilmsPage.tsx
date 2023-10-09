@@ -4,25 +4,66 @@ import Card from '../../components/Card/Card';
 import Query from '../../api/enums/query';
 import getFilms from '../../api/getFilms';
 
+import styles from './FilmsPage.module.css';
+import SearchBar from '../../components/SearchBar/SearchBar';
+import Pagination from '../../components/Pagination/Pagination';
+
 const FilmsPage: FC = () => {
+    const [page, setPage] = useState(1);
     const [query, setQuery] = useState('');
 
-    const filmsQuery = useQuery([Query.Films, query], () => getFilms(query), {
-        retry: false,
-        refetchOnWindowFocus: false,
-        refetchOnMount: false,
-    });
+    const filmsQuery = useQuery(
+        [Query.Films, page, query],
+        () => getFilms(page, query),
+        {
+            retry: false,
+            refetchOnWindowFocus: false,
+            refetchOnMount: false,
+            keepPreviousData: true,
+        }
+    );
+
+    const handlePageChange = (_page: number) => {
+        setPage(_page);
+    };
+
+    const handleSearch = (_query: string) => {
+        setQuery(_query);
+    };
 
     if (filmsQuery.isSuccess) {
-        console.log('query => ', filmsQuery);
+        const prevDisabled =
+            filmsQuery.isFetching || filmsQuery.data.previous === null;
+        const nextDisabled =
+            filmsQuery.isFetching || filmsQuery.data.next === null;
 
         return (
-            <div className="container">
-                <div className="cards">
-                    {filmsQuery.data.results.map(({ title }) => (
-                        <Card key={`id-${title}`} title={title} />
-                    ))}
-                </div>
+            <div className={styles.container}>
+                <h1 className={styles.title}>Films</h1>
+                <SearchBar
+                    handleSearch={handleSearch}
+                    searchDisabled={filmsQuery.isFetching}
+                />
+                {filmsQuery.isFetching ? (
+                    <div>Loading...</div>
+                ) : (
+                    <div className={styles.cards}>
+                        {filmsQuery.data.results.map(({ title, director }) => (
+                            <Card
+                                key={`id-${title}`}
+                                title={title}
+                                subtitle={director}
+                            />
+                        ))}
+                    </div>
+                )}
+                <Pagination
+                    current={page}
+                    top={Math.ceil(filmsQuery.data.count / 10)}
+                    prevDisabled={prevDisabled}
+                    nextDisabled={nextDisabled}
+                    handleClick={handlePageChange}
+                />
             </div>
         );
     }

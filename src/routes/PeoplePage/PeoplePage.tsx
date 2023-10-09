@@ -6,6 +6,8 @@ import getPeople from '../../api/getPeople';
 import Pagination from '../../components/Pagination/Pagination';
 import SearchBar from '../../components/SearchBar/SearchBar';
 
+import styles from './PeoplePage.module.css';
+
 const PeoplePage: FC = () => {
     const [page, setPage] = useState(1);
     const [query, setQuery] = useState('');
@@ -31,24 +33,38 @@ const PeoplePage: FC = () => {
     };
 
     if (peopleQuery.isSuccess) {
-        console.log('query => ', peopleQuery);
+        const prevDisabled =
+            peopleQuery.isFetching || peopleQuery.data.previous === null;
+        const nextDisabled =
+            peopleQuery.isFetching || peopleQuery.data.next === null;
 
         return (
-            <div className="container">
-                <SearchBar handleSearch={handleSearch} />
+            <div className={styles.container}>
+                <h1 className={styles.title}>People</h1>
+                <SearchBar
+                    handleSearch={handleSearch}
+                    searchDisabled={peopleQuery.isFetching}
+                />
                 {peopleQuery.isFetching ? (
                     <div>Loading...</div>
                 ) : (
-                    <div className="cards">
-                        {peopleQuery.data.results.map(({ name }) => (
-                            <Card key={`id-${name}`} title={name} />
-                        ))}
+                    <div className={styles.cards}>
+                        {peopleQuery.data.results.map(
+                            ({ name, birth_year }) => (
+                                <Card
+                                    key={`id-${name}`}
+                                    title={name}
+                                    subtitle={birth_year}
+                                />
+                            )
+                        )}
                     </div>
                 )}
                 <Pagination
                     current={page}
-                    prev={peopleQuery.data.previous}
-                    next={peopleQuery.data.next}
+                    top={Math.ceil(peopleQuery.data.count / 10)}
+                    prevDisabled={prevDisabled}
+                    nextDisabled={nextDisabled}
                     handleClick={handlePageChange}
                 />
             </div>

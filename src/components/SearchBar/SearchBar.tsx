@@ -1,10 +1,13 @@
 import { FC, useRef } from 'react';
 
+import styles from './SearchBar.module.css';
+
 interface SearchBarProps {
+    searchDisabled: boolean;
     handleSearch: (query: string) => void;
 }
 
-const SearchBar: FC<SearchBarProps> = ({ handleSearch }) => {
+const SearchBar: FC<SearchBarProps> = ({ handleSearch, searchDisabled }) => {
     const inputElement = useRef<HTMLInputElement>(null);
 
     const onSearch = () => {
@@ -16,15 +19,20 @@ const SearchBar: FC<SearchBarProps> = ({ handleSearch }) => {
     console.log(inputElement);
 
     return (
-        <div className="container">
-            <label>Search by Title</label>
+        <div className={styles.container}>
             <input
                 id="searchInput"
-                name="SearchInput"
+                className={styles['search-bar']}
                 type="text"
+                placeholder="Search by Name"
                 ref={inputElement}
             />
-            <button onClick={onSearch}>SEARCH ICON</button>
+            <button
+                className={styles.button}
+                onClick={onSearch}
+                disabled={searchDisabled}>
+                Search
+            </button>
         </div>
     );
 };

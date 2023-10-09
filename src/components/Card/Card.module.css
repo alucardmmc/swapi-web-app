@@ -1,0 +1,32 @@
+.container {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.image {
+    display: flex;
+    justify-content: center;
+    background-color: #262a2b;
+}
+
+.details {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-family: "Inter", sans-serif;
+    padding: 16px;
+}
+
+.title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+}
+
+.subtitle {
+    text-align: center;
+}

@@ -1,29 +1,38 @@
 import { FC } from 'react';
 
+import styles from './Pagination.module.css';
+
 interface PaginationProps {
     current: number;
-    next: string | null;
-    prev: string | null;
+    top: number;
+    prevDisabled: boolean;
+    nextDisabled: boolean;
     handleClick: (page: number) => void;
 }
 
 const Pagination: FC<PaginationProps> = ({
     current,
-    next,
-    prev,
+    top,
+    prevDisabled,
+    nextDisabled,
     handleClick,
 }) => {
     return (
-        <div className="container">
+        <div className={styles.container}>
             <button
+                className={styles['arrow-button']}
                 onClick={() => handleClick(current - 1)}
-                disabled={prev === null ? true : false}>
-                Previous Page!
+                disabled={prevDisabled}>
+                ← PREV
             </button>
+            <span className={styles['page-number']}>
+                {current} | {top}
+            </span>
             <button
+                className={styles['arrow-button']}
                 onClick={() => handleClick(current + 1)}
-                disabled={next === null ? true : false}>
-                Next Page!
+                disabled={nextDisabled}>
+                NEXT →
             </button>
         </div>
     );
