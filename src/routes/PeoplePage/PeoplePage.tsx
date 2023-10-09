@@ -5,6 +5,7 @@ import Query from '../../api/enums/query';
 import getPeople from '../../api/getPeople';
 import Pagination from '../../components/Pagination/Pagination';
 import SearchBar from '../../components/SearchBar/SearchBar';
+import Loading from '../../components/Loading/Loading';
 
 import styles from './PeoplePage.module.css';
 
@@ -46,7 +47,7 @@ const PeoplePage: FC = () => {
                     searchDisabled={peopleQuery.isFetching}
                 />
                 {peopleQuery.isFetching ? (
-                    <div>Loading...</div>
+                    <Loading />
                 ) : (
                     <div className={styles.cards}>
                         {peopleQuery.data.results.map(
@@ -71,7 +72,7 @@ const PeoplePage: FC = () => {
         );
     }
 
-    return <p>Loading...</p>;
+    return <Loading />;
 };
 
 export default PeoplePage;

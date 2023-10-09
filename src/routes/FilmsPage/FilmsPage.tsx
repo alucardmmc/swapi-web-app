@@ -3,10 +3,11 @@ import { useQuery } from '@tanstack/react-query';
 import Card from '../../components/Card/Card';
 import Query from '../../api/enums/query';
 import getFilms from '../../api/getFilms';
-
-import styles from './FilmsPage.module.css';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import Pagination from '../../components/Pagination/Pagination';
+import Loading from '../../components/Loading/Loading';
+
+import styles from './FilmsPage.module.css';
 
 const FilmsPage: FC = () => {
     const [page, setPage] = useState(1);
@@ -45,7 +46,7 @@ const FilmsPage: FC = () => {
                     searchDisabled={filmsQuery.isFetching}
                 />
                 {filmsQuery.isFetching ? (
-                    <div>Loading...</div>
+                    <Loading />
                 ) : (
                     <div className={styles.cards}>
                         {filmsQuery.data.results.map(({ title, director }) => (
@@ -68,7 +69,7 @@ const FilmsPage: FC = () => {
         );
     }
 
-    return <p>Loading</p>;
+    return <Loading />;
 };
 
 export default FilmsPage;

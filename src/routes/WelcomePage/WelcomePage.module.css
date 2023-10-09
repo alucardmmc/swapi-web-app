@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 50vh;
+    padding: 16px 8px;
+}
+
+.title {
+    font-family: "Inter", sans-serif;
+    font-size: 3rem;
+    text-align: center;
+}
+
+.message {
+    font-family: "Inter", sans-serif;
+    font-size: 1.2rem;
+    text-align: center;
+}

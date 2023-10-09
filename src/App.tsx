@@ -6,6 +6,7 @@ import Root from './routes/Root';
 import ErrorMessage from './components/ErrorMessage/ErrorMessage';
 import FilmsPage from './routes/FilmsPage/FilmsPage';
 import PeoplePage from './routes/PeoplePage/PeoplePage';
+import WelcomePage from './routes/WelcomePage/WelcomePage';
 
 const queryClient = new QueryClient();
 
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
         element: <Root />,
         errorElement: <ErrorMessage />,
         children: [
+            {
+                path: '',
+                element: <WelcomePage />,
+            },
             {
                 path: 'films',
                 element: <FilmsPage />,

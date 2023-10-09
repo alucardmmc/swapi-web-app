@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 48px 8px;
+}
+
+.error-title {
+    display: block;
+    font-family: "Inter", sans-serif;
+    font-size: 6rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.message-title {
+    font-family: "Inter", sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.message-subtitle {
+    font-family: "Inter", sans-serif;
+    font-size: 1.5rem;
+    text-align: center;
+}
